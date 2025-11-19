@@ -5,11 +5,12 @@ const { SuccessResponse, ErrorResponse } = require('../utils/common');
 const inMemDb = {};
 
 async function createBooking(req, res) {
+    
     try {
         const response = await BookingService.createBooking({
             flightId: req.body.flightId,
             userId: req.body.userId,
-            noofSeats: req.body.noofSeats
+            noOfSeats: req.body.noOfSeats
         });
         
         SuccessResponse.data = response;
@@ -26,6 +27,7 @@ async function createBooking(req, res) {
 
 async function makePayment(req, res) {
     try {
+        console.log(req.body);
         const idempotencyKey = req.headers['x-idempotency-key'];
         if(!idempotencyKey ) {
             return res
